@@ -1,39 +1,43 @@
 package com.tecdesoftware.market.persistence.entity;
-
 import jakarta.persistence.*;
 
+import javax.smartcardio.CardTerminal;
+
 @Entity
-@Table(name="productos")
+@Table(name = "productos")
 public class Producto {
 
-    @Id//Es la llave primaria
-    //Autogenera ids autoincrementables
+    @Id
+    //Valor único autoincrementable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_producto")
-    private int idProducto;
-
+    @Column (name = "id_producto")
+    private Integer idProducto;
 
     private String nombre;
 
-    @Column(name="id_categoria")
-    private Integer idCategoria;
+    @Column (name= "id_categoria")
+    private Integer IdCategoria;
 
-    @Column(name= "codigo_barras")
+    @Column (name = "coidgo_barras")
     private String codigoBarras;
 
-    @Column(name= "precio_venta")
+    @Column (name = "precio_venta")
     private Double precioVenta;
 
-    @Column(name="cantidad_stock")
+    @Column (name = "cantidad_stock")
     private Integer cantidadStock;
 
     private Boolean estado;
 
-    public int getIdProducto() {
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
+    private Categoria categoria;
+
+    public Integer getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
     }
 
@@ -46,11 +50,11 @@ public class Producto {
     }
 
     public Integer getIdCategoria() {
-        return idCategoria;
+        return IdCategoria;
     }
 
     public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
+        IdCategoria = idCategoria;
     }
 
     public String getCodigoBarras() {

@@ -1,29 +1,37 @@
 package com.tecdesoftware.market.persistence.entity;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
-@Table(name="clientes")
+@Table(name = "clientes")
 public class Cliente {
 
     @Id
-    //Porque el ID será la CURP  @GeneratedValuea
-    private Integer id;
+    //no se pone @GeneratedValue(strategy = GenerationType.IDENTITY) por la CURP
+    private String id;
+
     private String nombre;
+
     private String apellidos;
-    //private Integer celular;
-    private Long celular; //9, 999, 896, 754
+
+    //Long corresponde a un número más grande
+    private Long celular;
+
     private String direccion;
 
     @Column (name = "correo_electronico")
-    private String correoElectronico;
+    private String CorreoElectronico;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Compra> compras;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,10 +68,10 @@ public class Cliente {
     }
 
     public String getCorreoElectronico() {
-        return correoElectronico;
+        return CorreoElectronico;
     }
 
     public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+        CorreoElectronico = correoElectronico;
     }
 }
